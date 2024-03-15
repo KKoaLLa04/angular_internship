@@ -1,0 +1,9 @@
+<nav aria-label="Page navigation example">
+    <ul class="pagination d-flex justify-content-end pagination-sm">
+      <li class="page-item"><button class="page-link" (click)="prevPage()">Trước</button></li>
+      <li class="page-item" *ngFor="let page of pages" [ngClass]="{ 'page-item': true, active: currentPage === page}">
+        <button class="page-link" (click)="setPage(page)">{{page}}</button>
+      </li>
+      <li class="page-item"><button class="page-link" (click)="nextPage()">Sau</button></li>
+    </ul>
+  </nav>

@@ -1,0 +1,132 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">Thêm học sinh mới</h4>
+  <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true" class="visually-hidden">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="username" (ngSubmit)="changeDataToParent()">
+    <div class="row">
+      <div class="col-12 my-3">
+        <input type="text" placeholder="Avatar..." class="form-control" formControlName="avatar">
+        <div *ngIf="username.controls['avatar'].hasError('required') && username.controls['avatar'].touched"
+          class="alert alert-danger">
+          avatar bat buoc phai nhap
+        </div>
+      </div>
+
+      <div class="col-12 mb-3">
+        <input type="text" placeholder="name..." class="form-control" formControlName="name">
+        <div *ngIf="username.controls['name'].hasError('required') && username.controls['name'].touched"
+          class="alert alert-danger">
+          name bat buoc phai nhap
+        </div>
+      </div>
+
+      <div class="col-12 mb-3">
+        <input type="text" placeholder="username..." class="form-control" formControlName="username">
+        <div *ngIf="username.controls['username'].hasError('required') && username.controls['username'].touched"
+          class="alert alert-danger">
+          username bat buoc phai nhap
+        </div>
+      </div>
+
+      <div class="col-12 mb-3">
+        <input type="date" class="form-control" formControlName="date" placeholder="Ngày nhập học...">
+        <div *ngIf="username.controls['date'].hasError('required') && username.controls['date'].touched"
+          class="alert alert-danger">
+          date bat buoc phai nhap
+        </div>
+      </div>
+
+      <div class="col-12 mb-3">
+        <input type="radio" value="0" formControlName="gender" id="female" class="mx-1"> <label
+          for="female">Female</label>
+        <input type="radio" value="1" formControlName="gender" id="male" class="mx-1"> <label
+          for="male">male</label>
+        <div *ngIf="username.controls['gender'].hasError('required') && username.controls['gender'].touched"
+          class="alert alert-danger">
+          gender bat buoc phai chon
+        </div>
+      </div>
+
+      <div class="col-12 mb-3">
+        <!-- <input type="text" placeholder="date_of_study..." class="form-control" formControlName="date_of_study"> -->
+        <select class="form-control" formControlName="date_of_study">
+          <option value="" selected>Chọn năm học</option>
+          <option value="2024">2024</option>
+          <option value="2023">2023</option>
+          <option value="2022">2022</option>
+        </select>
+        <div
+          *ngIf="username.controls['date_of_study'].hasError('required') && username.controls['date_of_study'].touched"
+          class="alert alert-danger">
+          Năm học bat buoc phai nhap
+        </div>
+      </div>
+
+      <div class="col-12 mb-3">
+          <input type="checkbox" formControlName="block1"
+            class="mx-1" id="block1"> <label
+            for="block1">Kỳ 1</label>
+            <input type="checkbox" formControlName="block2"
+            class="mx-1" id="block2"> <label
+            for="block2">Kỳ 2</label>
+        <!-- <div class="alert alert-danger"
+          *ngIf="(username.get('block')?.invalid && username.get('block')?.touched)">
+          Kỳ học bắt buộc phải chọn
+        </div> -->
+      </div>
+
+      <div class="col-12 mb-3">
+        <label for="">Tình trạng</label> <br>
+        <input type="radio" formControlName="status" class="mx-1" id="status1" value="1"> <label for="status1">nghỉ
+          học</label>
+        <input type="radio" formControlName="status" class="mx-1" id="status2" value="2"> <label for="status2">đi
+          học</label>
+        <div *ngIf="username.controls['status'].hasError('required') && username.controls['status'].touched"
+          class="alert alert-danger">
+          status bat buoc phai chon
+        </div>
+      </div>
+
+      <div class="col-12 mb-3">
+        <input type="password" placeholder="password..." class="form-control" formControlName="password">
+        <div *ngIf="username.controls['password'].hasError('required') && username.controls['password'].touched"
+          class="alert alert-danger">
+          password bat buoc phai nhap
+        </div>
+        <div *ngIf="username.controls['password'].hasError('pattern') && username.controls['password'].touched"
+          class="alert alert-danger">
+          1 ký tự đặc biệt, 1 ký tự thường, 1 chữ hoa, 1 chữ số, tối thiểu 6 ký tự, tối đa 20 ký tự
+        </div>
+        <div *ngIf="username.controls['password'].hasError('minLength') && username.controls['password'].touched"
+          class="alert alert-danger">
+          mat khau khong duoc nho hon 6 ky tu
+        </div>
+        <div *ngIf="username.controls['password'].hasError('maxLength') && username.controls['password'].touched"
+          class="alert alert-danger">
+          mat khau khong duoc lon hon 20 ky tu
+        </div>
+      </div>
+
+      <div class="col-12 mb-3">
+        <input type="number" placeholder="age..." class="form-control" formControlName="age">
+        <div *ngIf="username.controls['age'].hasError('required') && username.controls['age'].touched"
+          class="alert alert-danger">
+          age bat buoc phai nhap
+        </div>
+        <div *ngIf="username.controls['age'].hasError('min') && username.controls['age'].touched"
+          class="alert alert-danger">
+          age bat buoc phai lớn hơn hoặc bằng 1 tuổi
+        </div>
+        <div *ngIf="username.controls['age'].hasError('max') && username.controls['age'].touched"
+          class="alert alert-danger">
+          age không được lớn hơn 100 tuổi
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" (click)="submitForm()">Thêm mới</button>
+  </form>
+</div>
