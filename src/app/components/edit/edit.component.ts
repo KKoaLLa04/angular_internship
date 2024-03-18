@@ -10,7 +10,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 })
 export class EditComponent implements OnInit{
   username!: FormGroup;
-  userData!: any;
+  userData!: any; //đổi về interface báo lỗi => xử lý sau
   itemId: number = 0;
   constructor(
     private userService: UserService,

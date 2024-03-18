@@ -1,6 +1,5 @@
 <div class="container">
   <h1 class="py-3 text-center">SHOW API LIST</h1>
-
   <!-- <a routerLink="/add-component" class="btn btn-success">Thêm mới</a> -->
   <button type="button" class="btn btn-primary" (click)="openModal()">Thêm mới</button>
   <br><br>
@@ -64,8 +63,8 @@
           <ng-template #template>
             <div class="modal-body text-center">
               <p>Bạn có chắc chắn muốn xóa??</p>
-              <button type="button" class="btn btn-default" (click)="confirm(item.id)">Có</button>
-              <button type="button" class="btn btn-primary" (click)="decline()">Hủy</button>
+              <button type="button" class="btn btn-default" (click)="confirmDeleteUser(item.id)">Có</button>
+              <button type="button" class="btn btn-primary" (click)="declineDeleteUser()">Hủy</button>
             </div>
           </ng-template>
           <!-- </button> -->

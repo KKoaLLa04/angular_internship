@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { UserService } from '../../service/user.service';
+import { DataShow } from '../interface/DataShow.interface';
 
 @Component({
   selector: 'app-list',
@@ -22,7 +23,6 @@ export class ListComponent implements OnInit{
   getListData(){
     this.userService.getData().subscribe((responseData: any) => {
       this.data = responseData;
-      console.log(responseData);
     })
   }
 

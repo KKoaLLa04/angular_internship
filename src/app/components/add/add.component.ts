@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../service/user.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { DataRequest } from '../interface/DataRequest.interface';
 
 @Component({
   selector: 'app-add',
@@ -45,20 +46,7 @@ export class AddComponent implements OnInit {
 
   // add
   changeDataToParent(){
-    interface UserDataRequest {
-      avatar: string;
-      name: string;
-      username: string;
-      gender: string;
-      date_of_study: Date;
-      block1: boolean;
-      block2: boolean;
-      status: string;
-      password: string;
-      age: number;
-      date: string;
-    }
-    let dataRequest: UserDataRequest = {
+    let dataRequest: DataRequest = {
       avatar: this.username.value.avatar,
       name: this.username.value.name,
       username: this.username.value.username,
@@ -84,7 +72,7 @@ export class AddComponent implements OnInit {
     }
   }
 
-   addUser(data:any){
+   addUser(data:DataRequest){
     this.userService.addUser(data).subscribe({
       next: (response:any) => {
         this.modalService.hide(1);

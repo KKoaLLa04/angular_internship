@@ -4,6 +4,8 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { AddComponent } from 'src/app/components/add/add.component';
 import { EditComponent } from 'src/app/components/edit/edit.component';
 import { UserService } from 'src/app/service/user.service';
+import { DataType } from '../interface/DataType.interface';
+import { DataShow } from '../interface/DataShow.interface';
 
 @Component({
   selector: 'child-list',
@@ -11,8 +13,8 @@ import { UserService } from 'src/app/service/user.service';
   styleUrls: ['./child-list.component.scss'],
 })
 export class ChildListComponent implements OnChanges {
-  @Input() data: any;
-  dataShow:any[] = [];
+  @Input() data!: DataType;
+  dataShow: DataShow[] = [];
 
   username!: FormGroup;
   message?: string;
@@ -21,45 +23,41 @@ export class ChildListComponent implements OnChanges {
 
   @Output() reloadData = new EventEmitter<boolean>();
 
+  // handle search
+  searchText: String = '';
+
+  // handle pagination
+  currentPageData: number = 1;
+  perPage: number = 5;
+
+  totalPagesData: number = 6; // hardcode tam thoi
+
   constructor(
     private userService: UserService,
     private modalService: BsModalService,
     private modalRef: BsModalRef
-  ) {}
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this.onFilterSearchText("");
+  ) {
   }
 
-  // handle search
-  searchText: String = '';
+  ngOnChanges(): void {
+    this.onFilterSearchText("");
+  }
 
   onFilterSearchText(value: string) {
     const searchLower = value.toLowerCase();
     
-    this.dataShow = this.data.filter((item:any) => {
-      const nameLower = item.name.toLowerCase();
-      const usernameLower = item.username.toLowerCase();
-      
-      return nameLower.includes(searchLower) || usernameLower.includes(searchLower);
-    });
+    if(this.data!==undefined){
+      this.dataShow = this.data.filter((item:any) => {
+        const nameLower = item.name.toLowerCase();
+        const usernameLower = item.username.toLowerCase();
+        
+        return nameLower.includes(searchLower) || usernameLower.includes(searchLower);
+      });
+    }
   }
-
-  // handle pagination
-  currentPageData = 1;
-  perPage: number = 5;
-
-  totalPagesData: number = this.dataShow.length;
 
   pageChange(currentPage: number) {
     this.currentPageData = currentPage;
-  }
-
-  checkDisplayList(i: number) {
-    let pageMax = this.currentPageData * 5; 
-    let pageMin = (this.currentPageData - 1) * 5 + 1; 
-
-    return i >= pageMin && i <= pageMax;
   }
 
   // add student modal
@@ -77,11 +75,11 @@ export class ChildListComponent implements OnChanges {
       itemId: itemId,
     };
 
-    this.modalRef.onHidden?.subscribe((res:any) => {
+    this.modalRef = this.modalService.show(EditComponent, { initialState });
+    
+    this.modalRef.onHidden?.subscribe((res: any) => {
       this.checkChangeData(res.id == 1);
     })
-
-    this.modalRef = this.modalService.show(EditComponent, { initialState });
   }
 
   // delete student modal
@@ -93,7 +91,7 @@ export class ChildListComponent implements OnChanges {
     })
   }
 
-  confirm(id: number): void {
+  confirmDeleteUser(id: number): void {
     this.userService.deleteUser(id).subscribe({
       next: (response:any) => {
         this.modalService.hide(1);
@@ -104,7 +102,7 @@ export class ChildListComponent implements OnChanges {
     });
   }
 
-  decline(): void {
+  declineDeleteUser(): void {
     this.message = 'Declined!';
     this.modalRef?.hide();
   }
