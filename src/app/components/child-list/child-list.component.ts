@@ -76,12 +76,21 @@ export class ChildListComponent implements OnChanges {
     const initialState: {itemId:number} = {
       itemId: itemId,
     };
+
+    this.modalRef.onHidden?.subscribe((res:any) => {
+      this.checkChangeData(res.id == 1);
+    })
+
     this.modalRef = this.modalService.show(EditComponent, { initialState });
   }
 
   // delete student modal
   openModalDetete(template: TemplateRef<void>) {
     this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
+
+    this.modalRef.onHidden?.subscribe((res:any) => {
+      this.checkChangeData(res.id == 1);
+    })
   }
 
   confirm(id: number): void {

@@ -12,7 +12,7 @@ export class AddComponent implements OnInit {
 
   username!: FormGroup;
   today:Date = new Date();
-  formattedToday:string = "2024-03-14";
+  formattedToday:string = "2024-03-18";
 
   constructor(
     private userService: UserService,

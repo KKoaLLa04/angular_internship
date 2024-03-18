@@ -82,19 +82,22 @@ export class EditComponent implements OnInit{
 
   submitFormEdit(){
     if(this.username.valid){
-      // add
-      let data = this.changeDataToParent();
-      this.userService.updateUser(this.itemId, data).subscribe({
-        next: (response:any) => {
-          this.modalService.hide(1);
-        },
-        error: (error:any) => {
-          this.modalService.hide(1);
-        }
-      })
+      this.updateUser();
     }else{
       this.markFormGroupAsTouched(this.username);
     }
+  }
+
+  updateUser(){
+    let data = this.changeDataToParent();
+    this.userService.updateUser(this.itemId, data).subscribe({
+      next: (response:any) => {
+        this.modalService.hide(1);
+      },
+      error: (error:any) => {
+        this.modalService.hide(1);
+      }
+    })
   }
 
   markFormGroupAsTouched(formGroup: FormGroup) {

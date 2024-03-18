@@ -36,13 +36,13 @@
         <td>
           {{item.username}}</td>
         <td>
-          {{item.gender | genderDate:'gender'}}</td>
+          {{item.gender | gender:'gender'}}</td>
         <td>
           {{item.age}}</td>
         <td>
           {{item.date_of_study}}</td>
         <td>
-        {{item.date | genderDate:'date'}}</td>
+        {{item.date | date:'date'}}</td>
         <td>
           <span *ngIf="item.block1">- Kỳ 1</span>
           <br>

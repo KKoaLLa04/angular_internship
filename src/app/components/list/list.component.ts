@@ -22,6 +22,7 @@ export class ListComponent implements OnInit{
   getListData(){
     this.userService.getData().subscribe((responseData: any) => {
       this.data = responseData;
+      console.log(responseData);
     })
   }
 
