@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../service/user.service';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-edit',
@@ -16,7 +16,8 @@ export class EditComponent implements OnInit{
     private userService: UserService,
     private formBuilder: FormBuilder,
     public bsModalRef: BsModalRef,
-    private modalRef: BsModalRef
+    private modalRef: BsModalRef,
+    private modalService: BsModalService,
     ){
     }
 
@@ -83,9 +84,13 @@ export class EditComponent implements OnInit{
     if(this.username.valid){
       // add
       let data = this.changeDataToParent();
-      this.userService.updateUser(this.itemId, data).subscribe(response => {
-        alert("Cập nhật sản phẩm thành công!");
-        window.location.reload();
+      this.userService.updateUser(this.itemId, data).subscribe({
+        next: (response:any) => {
+          this.modalService.hide(1);
+        },
+        error: (error:any) => {
+          this.modalService.hide(1);
+        }
       })
     }else{
       this.markFormGroupAsTouched(this.username);
@@ -96,6 +101,10 @@ export class EditComponent implements OnInit{
     Object.values(formGroup.controls).forEach(control => {
       control.markAsTouched();
     });
+  }
+
+  closeModal(){
+    this.modalRef?.hide();
   }
 }
 

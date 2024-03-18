@@ -17,7 +17,7 @@ export class ChildListComponent implements OnChanges {
   username!: FormGroup;
   message?: string;
   today: Date = new Date();
-  formattedToday: string = '2024-03-14';
+  formattedToday: string = '2024-03-18';
 
   @Output() reloadData = new EventEmitter<boolean>();
 
@@ -85,8 +85,13 @@ export class ChildListComponent implements OnChanges {
   }
 
   confirm(id: number): void {
-    this.userService.deleteUser(id).subscribe((data) => {
-      window.location.reload();
+    this.userService.deleteUser(id).subscribe({
+      next: (response:any) => {
+        this.modalService.hide(1);
+      },
+      error: (error:any) => {
+        this.modalService.hide(1);
+      }
     });
   }
 
