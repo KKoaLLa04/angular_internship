@@ -78,7 +78,7 @@ export class AddComponent implements OnInit {
         this.modalService.hide(1);
       },
       error: (error:any) => {
-        this.modalService.hide(1);
+        this.modalService.hide(0);
       }
     })
    }

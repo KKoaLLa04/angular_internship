@@ -10,7 +10,7 @@ export class PaginationComponent implements OnInit{
   @Input() currentPage: number =1;
   @Input() totalPages: number =1;
   @Input() limit:number = 5;
-  @Input() data: any = '';
+  @Input() data: string = '';
   displayData: boolean = true;
 
   @Output() pageChange: EventEmitter<number> = new EventEmitter<number>();

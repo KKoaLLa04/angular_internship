@@ -30,7 +30,7 @@ export class ChildListComponent implements OnChanges {
   currentPageData: number = 1;
   perPage: number = 5;
 
-  totalPagesData: number = 6; // hardcode tam thoi
+  totalPagesData: number = 11; // hardcode tam thoi
 
   constructor(
     private userService: UserService,
@@ -97,7 +97,7 @@ export class ChildListComponent implements OnChanges {
         this.modalService.hide(1);
       },
       error: (error:any) => {
-        this.modalService.hide(1);
+        this.modalService.hide(0);
       }
     });
   }

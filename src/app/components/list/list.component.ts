@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { UserService } from '../../service/user.service';
 import { DataShow } from '../interface/DataShow.interface';
+import { DataType } from '../interface/DataType.interface';
 
 @Component({
   selector: 'app-list',
@@ -9,7 +10,7 @@ import { DataShow } from '../interface/DataShow.interface';
 })
 export class ListComponent implements OnInit{
 
-  data: any;
+  data!: DataType;
   constructor(
     private userService: UserService,
   ){
