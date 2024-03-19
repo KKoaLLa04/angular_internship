@@ -95,6 +95,7 @@ export class ChildListComponent implements OnChanges {
     this.userService.deleteUser(id).subscribe({
       next: (response:any) => {
         this.modalService.hide(1);
+        this.closeModal();
       },
       error: (error:any) => {
         this.modalService.hide(0);
@@ -104,6 +105,10 @@ export class ChildListComponent implements OnChanges {
 
   declineDeleteUser(): void {
     this.message = 'Declined!';
+    this.modalRef?.hide();
+  }
+
+  closeModal(){
     this.modalRef?.hide();
   }
 

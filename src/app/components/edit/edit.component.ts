@@ -58,25 +58,34 @@ export class EditComponent implements OnInit{
     }
 
   initFormEdit(data: userData){
-    this.username = this.formBuilder.group({
-      avatar: [data.avatar, Validators.required],
-      name: [data.name, Validators.required],
-      username: [data.username, Validators.required],
-      gender: [data.gender, Validators.required],
-      date_of_study: [data.date_of_study, Validators.required],
-      block1: [data.block1],
-      block2: [data.block2],
-      status: [data.status, Validators.required],
-      password: [data.password, [Validators.required, Validators.minLength(6), Validators.maxLength(20) , Validators.pattern("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()/.=+]).{6,20}")]],
-      age: [data.age, [Validators.required, Validators.min(1), Validators.max(100)]],
-      date: [data.date, Validators.required],
-    });
+    if(data !== undefined){
+      this.username = this.formBuilder.group({
+        avatar: [data.avatar, Validators.required],
+        name: [data.name, Validators.required],
+        username: [data.username, Validators.required],
+        gender: [data.gender, Validators.required],
+        date_of_study: [data.date_of_study, Validators.required],
+        block1: [data.block1],
+        block2: [data.block2],
+        status: [data.status, Validators.required],
+        password: [data.password, [Validators.required, Validators.minLength(6), Validators.maxLength(20) , Validators.pattern("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()/.=+]).{6,20}")]],
+        age: [data.age, [Validators.required, Validators.min(1), Validators.max(100)]],
+        date: [data.date, Validators.required],
+      });
+    }
   }
 
   getDetailUser(idItem: number){
-    this.userService.getDetailUser(idItem).subscribe(data => {
-      this.userData = data;
-      this.initFormEdit(this.userData);
+    this.userService.getDetailUser(idItem).subscribe({
+      next: (data: any) => {
+        if(data !== undefined){
+          this.userData = data;
+          this.initFormEdit(this.userData);
+        }
+      },
+      error: (error: any) => {
+        alert("Error");
+      }
     })
   }
 
@@ -93,9 +102,11 @@ export class EditComponent implements OnInit{
     this.userService.updateUser(this.itemId, data).subscribe({
       next: (response:any) => {
         this.modalService.hide(1);
+        console.log(this.modalService.hide(1));
+        
       },
       error: (error:any) => {
-        this.modalService.hide(0);
+        alert("error");        
       }
     })
   }

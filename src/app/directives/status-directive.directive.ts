@@ -1,20 +1,22 @@
-import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[appStatusDirective]'
 })
-export class StatusDirectiveDirective {
+export class StatusDirectiveDirective implements OnInit {
+
+  @Input() appStatusDirective!: string; // Giá trị status được truyền vào từ component
 
   constructor(
-    private templateRef: TemplateRef<any>,
-    private viewContainer: ViewContainerRef
+    private el: ElementRef, 
+    private renderer: Renderer2
   ) { }
-
-  @Input() set appStatusDirective(status: number) {
-    this.viewContainer.clear();
-    if (status === 1) {
-      this.viewContainer.createEmbeddedView(this.templateRef);
-      console.log(this.viewContainer.createEmbeddedView(this.templateRef));
+ 
+  ngOnInit() {
+    if (this.appStatusDirective == '1') {
+      this.renderer.setProperty(this.el.nativeElement, 'innerText', 'Nghỉ học');
+    } else if (this.appStatusDirective == '2') {
+      this.renderer.setProperty(this.el.nativeElement, 'innerText', 'Đi học');
     }
   }
 }

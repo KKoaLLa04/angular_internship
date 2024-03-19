@@ -48,8 +48,9 @@
           <span *ngIf="item.block2">- Kỳ 2</span>
         </td>
         <td>
-          <span *ngIf="item.status==='1'" class="btn btn-danger">Nghỉ học</span>
-          <span *ngIf="item.status==='2'" class="btn btn-success">Đi học</span>
+          <!-- <span *ngIf="item.status==='1'" class="btn btn-danger">Nghỉ học</span> -->
+          <!-- <span *ngIf="item.status==='2'" class="btn btn-success">Đi học</span> -->
+          <div [appStatusDirective]="item.status"></div>
         </td>
         <td>
           <button type="button" class="btn btn-warning" (click)="openEditModal(item.id)">Edit</button>
